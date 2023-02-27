@@ -12,9 +12,11 @@ Dataverseプラグイン
   - [プラグイン概要](#プラグイン概要)
     - [チュートリアル](#チュートリアル)
       - [プラグインを書き込み登録する](#プラグインを書き込み登録する)
-        - [プラグイン プロジェクトの作成](#プラグイン-プロジェクトの作成)
       - [プラグインをデバッグする](#プラグインをデバッグする)
       - [プラグインを更新する](#プラグインを更新する)
+    - [クイックスタート](#クイックスタート)
+      - [Power Platform ツール プロジェクトを作成する](#power-platform-ツール-プロジェクトを作成する)
+      - [Power Platform Tools を使用してプラグインを作成する](#power-platform-tools-を使用してプラグインを作成する)
 
 <!-- /TOC -->
 
@@ -26,12 +28,14 @@ Dataverseプラグイン
 <a id="markdown-%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99" name="%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99"></a>
 
 - [Microsoft Power Platform CLI](https://learn.microsoft.com/ja-jp/power-platform/developer/cli/introduction)
-  - 新規インストール
-    - [Power Platform Tools for Visual Studio Code](https://aka.ms/ppcvscode)
-    - [Power Platform CLI for Windows](https://aka.ms/PowerAppsCLI)
-  - 既存を更新 `pac install latest` （Power Platform CLI for Windowsのみ）
+  - インストール
+    - 新規インストール
+      - [Power Platform Tools for Visual Studio Code](https://aka.ms/ppcvscode)
+      - [Power Platform CLI for Windows](https://aka.ms/PowerAppsCLI)
+    - 既存を更新 `pac install latest` （Power Platform CLI for Windowsのみ）
+  - [Dataverse 開発ツール](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/download-tools-nuget)
 
-- [Dataverse 開発ツール](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/download-tools-nuget)
+<br>
 
 ```powershell
 # 更新の場合は --update オプションを追加
@@ -56,6 +60,7 @@ pac tool list
 - Visual Studio インストーラー
   - Visual Studio 最新版
   - .NET Framework 4.6.2
+  - Windows Workflow Foundation
 
 <br>
 
@@ -72,12 +77,38 @@ pac tool list
 
 `取引先企業テーブルの作成メッセージで登録された非同期プラグインを作成します。プラグインは、取引先企業の作成者に 1 週間後のフォローアップを通知するタスク活動を作成します。`
 
-##### [プラグイン プロジェクトの作成](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-write-plug-in#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90)
-<a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90"></a>
+1. 新しい「クラスライブラリ (.NET Framework 4.6.2) 」プロジェクトを作成。プロジェクト名は `BasicPlugin`
+2. NuGet パッケージ「 Microsoft.CrmSdk.CoreAssemblies 」をインストール
+3. `Class1.cs` を `FollowupPlugin.cs` にリネーム
+4. [FollowupPlugin.cs](https://raw.githubusercontent.com/microsoft/PowerApps-Samples/master/dataverse/orgsvc/C%23/FollowupPlugin/FollowupPlugin/FollowupPlugin.cs) で上書き。 `namespace BasicPlugin` はそのまま
+5. ソリューションをビルド
+6. 署名設定
+   1. BasicPlugin プロジェクトのプロパティで署名タブの `アセンブリに署名する` を有効化
+   2. 新規作成
+   3. ファイル名・パスワードを指定
+7. `\bin\Debug\BasicPlugin.dll` が生成されていることを確認
 
-- NET Framework 4.6.2を使用する新しいClass Library (.NET Framework 4.6.2) プロジェクトを作成。プロジェクト名は `BasicPlugin` 。
+8. プラグイン登録ツールを起動
+9. Microsoft 365 アカウントで認証
+10. 環境を選択
+11. 登録 ドロップダウン リストで 新しいアセンブリ を選択
+12. 選択したプラグインの登録 をクリックしてダイアログでも OK をクリック
 
-- NuGet パッケージ「 Microsoft.CrmSdk.CoreAssemblies 」をインストール。
+13. `(Assembly) BasicPlugin` を展開すると、 `(Plugin) BasicPlugin.FollowUpPlugin` プラグインが表示される。 `(Plugin) BasicPlugin.FollowUpPlugin` を右クリックし、新しいステップの登録を選択
+14. ダイアログで以下を設定
+
+| 設定                               | 値            |
+| ---------------------------------- | ------------- |
+| メッセージ                         | Create        |
+| 主エンティティ                     | account       |
+| 実行のイベントパイプラインステージ | PostOperation |
+| 実行モード                         | 非同期        |
+
+15. 新しいステップの登録をクリックして登録を完了
+
+16. 取引先企業テーブルとタスクテーブルを使用するモデル駆動型アプリ（ [ソリューションパッケージ](./Solutions/AccountTask_1_0_0_0.zip) ）を作成し、取引先企業テーブルにレコードを新規作成
+17. 作成した取引先企業レコードの活動にタスクが追加されていることを確認
+18. Power Platform 管理センターの環境の設定画面から「すべてのレガシ設定」から Dynamics 365 の設定画面を開き、設定からシステムジョブを確認（ [システム ジョブの表示](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-write-plug-in#%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-%E3%82%B8%E3%83%A7%E3%83%96%E3%81%AE%E8%A1%A8%E7%A4%BA) ）
 
 #### [プラグインをデバッグする](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-debug-plug-in)
 <a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%99%E3%82%8B" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%99%E3%82%8B"></a>
@@ -86,7 +117,29 @@ pac tool list
 #### [プラグインを更新する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-update-plug-in)
 <a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B"></a>
 
+<br>
 
+### クイックスタート
+<a id="markdown-%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88" name="%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88"></a>
+
+#### [Power Platform ツール プロジェクトを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-project)
+<a id="markdown-power-platform-%E3%83%84%E3%83%BC%E3%83%AB-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-%E3%83%84%E3%83%BC%E3%83%AB-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
+
+- [Power Platform ソリューションのテンプレートを使用する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-project#power-platform-%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B)
+
+1. Power Platform ソリューションテンプレートから新規プロジェクトを作成
+2. .NET Framework 4.6.2 を指定
+3. Dataverse の認証ダイアログ
+4. 既存の Dataverse のソリューションを使用するか、新しいソリューションを作成するかを選択
+5. 新しいソリューションに関する情報を入力
+6. Power Platform のプロジェクトテンプレートを使用して新規プロジェクトを作成
+7. ダイアログで、利用可能な各プロジェクトを 1 つだけ選択してソリューションに追加
+8. プロジェクトの名前を入力し、完了を選択
+9. Visual Studio ソリューション エクスプローラーでプロジェクト名として表示する名前を指定
+10. ソリューション ファイルを保存するかどうかの確認で保存を選択
+
+#### [Power Platform Tools を使用してプラグインを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin)
+<a id="markdown-power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
 
 ---
 
