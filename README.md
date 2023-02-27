@@ -1,0 +1,2 @@
+# PowerPlatform-Dataverse-Plugin
+ Dataverseプラグイン
