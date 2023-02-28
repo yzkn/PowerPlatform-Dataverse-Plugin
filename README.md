@@ -62,6 +62,9 @@ pac tool list
   - .NET Framework 4.6.2
   - Windows Workflow Foundation
 
+- Visual Studio 上での、拡張機能 > 拡張機能の管理
+  - Power Platform Tools ( for VS 2022 )
+
 <br>
 
 ## プラグイン概要
@@ -77,8 +80,8 @@ pac tool list
 
 `取引先企業テーブルの作成メッセージで登録された非同期プラグインを作成します。プラグインは、取引先企業の作成者に 1 週間後のフォローアップを通知するタスク活動を作成します。`
 
-1. 新しい「クラスライブラリ (.NET Framework 4.6.2) 」プロジェクトを作成。プロジェクト名は `BasicPlugin`
-2. NuGet パッケージ「 Microsoft.CrmSdk.CoreAssemblies 」をインストール
+1. 新しい `クラスライブラリ (.NET Framework 4.6.2)` プロジェクトを作成。プロジェクト名は `BasicPlugin`
+2. NuGet パッケージ `Microsoft.CrmSdk.CoreAssemblies` をインストール
 3. `Class1.cs` を `FollowupPlugin.cs` にリネーム
 4. [FollowupPlugin.cs](https://raw.githubusercontent.com/microsoft/PowerApps-Samples/master/dataverse/orgsvc/C%23/FollowupPlugin/FollowupPlugin/FollowupPlugin.cs) で上書き。 `namespace BasicPlugin` はそのまま
 5. ソリューションをビルド
@@ -91,7 +94,7 @@ pac tool list
 8. プラグイン登録ツールを起動
 9. Microsoft 365 アカウントで認証
 10. 環境を選択
-11. 登録 ドロップダウン リストで 新しいアセンブリ を選択
+11. 「登録」ドロップダウンリストで「新しいアセンブリ」を選択
 12. 選択したプラグインの登録 をクリックしてダイアログでも OK をクリック
 
 13. `(Assembly) BasicPlugin` を展開すると、 `(Plugin) BasicPlugin.FollowUpPlugin` プラグインが表示される。 `(Plugin) BasicPlugin.FollowUpPlugin` を右クリックし、新しいステップの登録を選択
@@ -113,6 +116,25 @@ pac tool list
 #### [プラグインをデバッグする](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-debug-plug-in)
 <a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%99%E3%82%8B" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%99%E3%82%8B"></a>
 
+1. プラグイン登録ツールで、 `プロファイラーのインストール` をクリック
+   1. エラーが出る場合は、プラグイン登録ツールと同じフォルダにあるソリューションパッケージを手動でインストール
+2. `(Step) BasicPlugin.FollowupPlugin: Create of account` を選択し、 `プロファイリングを開始` をクリック
+3. プロファイラー設定ダイアログが表示されるので、既定のまま `OK` をクリック
+4. プラグイン登録ツールで、 `デバッグ` をクリック
+5. `プラグイン実行の再生` ダイアログの `セットアップ` タブで、 `プロファイルの場所` の右の `↓` をクリック
+6. `CRM からプロファイルを選択` ダイアログで、プロファイルを選択
+7. `アセンブリの場所` で `BasicPlugin.dll` の場所を指定
+8. Visual Studio 上で
+   1. Visual Studio で、プラグイン クラスにブレーク ポイントを設定
+   2. Visual Studio プロジェクトで、 `デバッグ` > `プロセスにアタッチ` を選択
+   3. `利用できるプロセス（Available processes）` の一覧から `PluginRegistration.exe` でフィルタリングしてプロセスを選択
+   4. `追加（Attach）` をクリック
+9. プラグイン登録ツールで、 `実行の開始` をクリック
+
+10. デバッグする
+
+11. プラグイン実行の再生ダイアログダイアログを閉じる
+12. プラグイン登録ツールで、 `プロファイリングの停止` をクリック
 
 #### [プラグインを更新する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tutorial-update-plug-in)
 <a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B"></a>
@@ -140,6 +162,12 @@ pac tool list
 
 #### [Power Platform Tools を使用してプラグインを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin)
 <a id="markdown-power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
+
+1. Visual Studio を開き、 `コードなしで続行`
+2. Visual Studio で、 `ツール` メニューで `Dataverse に接続` を選択
+3. ダイアログで認証
+4. 環境とソリューションを選択
+5. [Dataverse でプラグイン ステップを登録する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin#dataverse-%E3%81%A7%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3-%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B)
 
 ---
 
