@@ -64,6 +64,9 @@ pac tool list
 
 - Visual Studio 上での、拡張機能 > 拡張機能の管理
   - Power Platform Tools ( for VS 2022 )
+    1. Power Platform Tools > General
+    2. Use nuget package for deploying Plugins to Dataverse
+
 
 <br>
 
@@ -163,11 +166,16 @@ pac tool list
 #### [Power Platform Tools を使用してプラグインを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin)
 <a id="markdown-power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
 
-1. Visual Studio を開き、 `コードなしで続行`
-2. Visual Studio で、 `ツール` メニューで `Dataverse に接続` を選択
-3. ダイアログで認証
-4. 環境とソリューションを選択
-5. [Dataverse でプラグイン ステップを登録する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin#dataverse-%E3%81%A7%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3-%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B)
+
+
+
+3. Visual Studio でプラグインライブラリを持つ Dataverse ソリューションを開く
+4. Visual Studio で、 `ツール` メニューで `Dataverse に接続` を選択
+5. ダイアログで認証
+6. 既存の Dataverse ソリューション、または既定のソリューションを選択
+7. `ビュー` > `Power Platform Explorer` を選択し、 `環境` ノードと `テーブル` サブノードを展開
+8. ステップを登録するテーブルを右クリックし、プラグインの作成を選択
+9.
 
 ---
 
