@@ -8,15 +8,17 @@ Dataverseプラグイン
 <!-- TOC -->
 
 - [PowerPlatform-Dataverse-Plugin](#powerplatform-dataverse-plugin)
-  - [事前準備](#事前準備)
-  - [プラグイン概要](#プラグイン概要)
-    - [チュートリアル](#チュートリアル)
-      - [プラグインを書き込み登録する](#プラグインを書き込み登録する)
-      - [プラグインをデバッグする](#プラグインをデバッグする)
-      - [プラグインを更新する](#プラグインを更新する)
-    - [クイックスタート](#クイックスタート)
-      - [Power Platform ツール プロジェクトを作成する](#power-platform-ツール-プロジェクトを作成する)
-      - [Power Platform Tools を使用してプラグインを作成する](#power-platform-tools-を使用してプラグインを作成する)
+    - [事前準備](#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99)
+    - [プラグイン概要](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E6%A6%82%E8%A6%81)
+        - [チュートリアル](#%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB)
+            - [プラグインを書き込み登録する](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B)
+            - [プラグインをデバッグする](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%99%E3%82%8B)
+            - [プラグインを更新する](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8B)
+        - [クイックスタート](#%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88)
+            - [Power Platform ツール プロジェクトを作成する](#power-platform-%E3%83%84%E3%83%BC%E3%83%AB-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)
+            - [Power Platform Tools を使用してプラグインを作成する](#power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)
+        - [サンプルコード](#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89)
+            - [プラグインからの Web アクセス](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E3%81%AE-web-%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
 
 <!-- /TOC -->
 
@@ -166,6 +168,16 @@ pac tool list
 #### [Power Platform Tools を使用してプラグインを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin)
 <a id="markdown-power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
 
+### サンプルコード
+<a id="markdown-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89" name="%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89"></a>
+
+#### [プラグインからの Web アクセス](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/org-service/samples/web-access-plugin)
+<a id="markdown-%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E3%81%AE-web-%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9" name="%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E3%81%AE-web-%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9"></a>
+
+1. `git clone https://github.com/Microsoft/PowerApps-Samples` [PowerApps-Samples-master\cds\orgsvc\C#\WebAccessPlugin](https://github.com/microsoft/PowerApps-Samples/tree/master/dataverse/orgsvc/C#/WebAccessPlugin)
+2. Visual Studio でサンプル ソリューションを開き、プロジェクトのプロパティに移動して、ビルド中にアセンブリが署名されることを確認
+3. プラグイン登録ツールを実行して Microsoft Dataverse サーバーのサンドボックスおよびデータベースにアセンブリを登録
+4. [プラグインを書き込み登録する](#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B) と同様
 ---
 
 Copyright (c) 2023 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
