@@ -168,6 +168,14 @@ pac tool list
 #### [Power Platform Tools を使用してプラグインを作成する](https://learn.microsoft.com/ja-jp/power-apps/developer/data-platform/tools/devtools-create-plugin)
 <a id="markdown-power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B" name="power-platform-tools-%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B"></a>
 
+1. `ツール` メニュー > `Dataverse に接続`
+2. 認証し、ソリューションを選択
+3. Power Platform Explorer が開くので、 `環境` ノードと `テーブル` サブノードを展開
+4. ステップを登録するテーブル名を右クリックし、 `プラグインの作成` を選択
+5. 新規ステップの登録ダイアログの情報を入力し、 `新規ステップの登録`を選択
+6. プロジェクトのプロパティから `アセンブリに署名する` を有効化
+7. `PreOperationya_***Create` クラスが生成されるので、プロジェクトをビルドする
+
 ### サンプルコード
 <a id="markdown-%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89" name="%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89"></a>
 
