@@ -100,7 +100,7 @@ pac tool list
 9. Microsoft 365 アカウントで認証
 10. 環境を選択
 11. 「登録」ドロップダウンリストで「新しいアセンブリ」を選択
-12. 選択したプラグインの登録 をクリックしてダイアログでも OK をクリック
+12. `\bin\Debug\BasicPlugin.dll` を指定し、選択したプラグインの登録 をクリックしてダイアログでも OK をクリック
 
 13. `(Assembly) BasicPlugin` を展開すると、 `(Plugin) BasicPlugin.FollowUpPlugin` プラグインが表示される。 `(Plugin) BasicPlugin.FollowUpPlugin` を右クリックし、新しいステップの登録を選択
 14. ダイアログで以下を設定
