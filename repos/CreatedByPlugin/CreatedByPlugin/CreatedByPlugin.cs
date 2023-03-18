@@ -46,32 +46,27 @@ namespace CreatedByPlugin
 
                 try
                 {
-                    // 作成者を変更する
-
-                    var newGUID = "606dd909-699e-ed11-aad1-002248627eac";
-
+                    // 作成者を、UPN列で指定されたUPNを持つユーザーに変更する
                     IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                     IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
-                    var userRef = new EntityReference(
-                        logicalName: "systemuser",
-                        keyName: "internalemailaddress",
-                        keyValue: entity["ya_upn"].ToString()
-                    );
-
-                    ColumnSet cs = new ColumnSet("systemuserid");
-                    //var entity2 = service.Retrieve(userRef.LogicalName, userRef.Id, cs);
-                    //if (entity2.Contains("systemuserid")){
-                    //    newGUID = entity2.GetAttributeValue<EntityReference>("systemuserid").ToString();
-                    //}
-
                     EntityReference beforeER = (EntityReference)entity["createdby"];
-                    var beforeGuid = beforeER.Id;
+                    Guid beforeGuid = beforeER.Id;
                     entity["ya_beforeguid"] = beforeGuid.ToString();
+
+                    var newGUID = "";
+                    QueryExpression query = new QueryExpression("systemuser");
+                    query.ColumnSet = new ColumnSet("systemuserid");
+                    query.Criteria.AddCondition("internalemailaddress", ConditionOperator.Equal, entity["ya_upn"]);
+                    EntityCollection collection = service.RetrieveMultiple(query);
+                    if (collection.Entities.Count > 0)
+                    {
+                        var item = collection.Entities[0];
+                        newGUID = item.Id.ToString();
+                    }
                     entity["ya_afterguid"] = newGUID;
 
                     entity["createdby"] = new EntityReference("systemuser", Guid.Parse(newGUID));
-
                 }
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
