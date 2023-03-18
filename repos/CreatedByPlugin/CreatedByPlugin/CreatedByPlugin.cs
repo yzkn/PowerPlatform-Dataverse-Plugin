@@ -50,23 +50,24 @@ namespace CreatedByPlugin
 
                     var newGUID = "606dd909-699e-ed11-aad1-002248627eac";
 
-                    //IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-                    //IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+                    IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+                    IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
-                    //var userRef = new EntityReference(
-                    //    logicalName: "systemuser",
-                    //    keyName: "internalemailaddress",
-                    //    keyValue: entity["ya_upn"].ToString()
-                    //);
+                    var userRef = new EntityReference(
+                        logicalName: "systemuser",
+                        keyName: "internalemailaddress",
+                        keyValue: entity["ya_upn"].ToString()
+                    );
 
-                    //ColumnSet cs = new ColumnSet("systemuserid");
+                    ColumnSet cs = new ColumnSet("systemuserid");
                     //var entity2 = service.Retrieve(userRef.LogicalName, userRef.Id, cs);
                     //if (entity2.Contains("systemuserid")){
                     //    newGUID = entity2.GetAttributeValue<EntityReference>("systemuserid").ToString();
                     //}
 
-
-                    entity["ya_beforeguid"] = entity["createdby"].ToString();
+                    EntityReference beforeER = (EntityReference)entity["createdby"];
+                    var beforeGuid = beforeER.Id;
+                    entity["ya_beforeguid"] = beforeGuid.ToString();
                     entity["ya_afterguid"] = newGUID;
 
                     entity["createdby"] = new EntityReference("systemuser", Guid.Parse(newGUID));
